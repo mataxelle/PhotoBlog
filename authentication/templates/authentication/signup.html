@@ -1,21 +1,24 @@
 {% extends "base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
-    <h1>Inscription</h1>
     
-    {% if form.errors %}
-        {{ form.error }}
-    {% endif %}
+        <h1>Inscription</h1>
+    
+        {% if form.errors %}
+            {% bootstrap_form_errors form %}
+        {% endif %}
    
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" >S'inscrire</button>
-    </form>
+        <form class="row g-3 align-items-center" action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" >S'inscrire</button>
+        </form>
 
-    <div>
-        <p>
-            <a href="{% url 'login'%}">J'ai déjà un compte !</a>
-        </p>
-    </div>
+        <div class="my-5">
+            <p>
+                <a href="{% url 'login'%}">J'ai déjà un compte !</a>
+            </p>
+        </div>
+    
 {% endblock %}

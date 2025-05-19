@@ -1,17 +1,26 @@
 {% extends "base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
-    <h1>Connexion</h1>
-    <p>{{ message }}</p>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" >Se connecter</button>
-    </form>
+    
+        <h1>Connexion</h1>
 
-    <div>
-        <p>
-            <a href="{% url 'signup'%}">Pas encore inscrit ?</a>
-        </p>
-    </div>
+        {% if form.errors %}
+            {% bootstrap_form_errors form %}
+        {% endif %}
+
+        <p>{{ message }}</p>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" >Se connecter</button>
+        </form>
+
+        <div class="my-5">
+            <p>
+                <a href="{% url 'signup'%}">Pas encore inscrit ?</a>
+            </p>
+        </div>
+    
 {% endblock %}
