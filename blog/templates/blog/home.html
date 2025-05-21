@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>Vous êtes connecté !</p>
+    <h2>Fil d'actualité</h2>
+
+    {% for photo in photos %}
+        <img src="{{ photo.image.url }}" alt="photo" class="img-fluid">
+        <p>{{ photo.caption }}</p>
+    {% endfor %}
 {% endblock %}

@@ -133,3 +133,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = LOGIN_URL
+
+MEDIA_URL = '/media/'
+
+# Répertoire local dans lequel sont sauvegardées les images
+MEDIA_ROOT = BASE_DIR.joinpath('media/')
