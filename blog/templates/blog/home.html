@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Fil d'actualité</h2>
+    <h2 class="my-5">Fil d'actualité</h2>
 
-    {% for photo in photos %}
-        <img src="{{ photo.image.url }}" alt="photo" class="img-fluid">
-        <p>{{ photo.caption }}</p>
-    {% endfor %}
+    <div class="row justify-content-around">
+        {% for photo in photos %}
+            <div class="col-4">
+                <img src="{{ photo.image.url }}" alt="photo" class="img-fluid rounded ">
+                <p>{{ photo.caption }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
