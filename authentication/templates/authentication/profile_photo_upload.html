@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+    
+        <h1>Ajouter une photo de profil</h1>
+    
+        {% if form.errors %}
+            {% bootstrap_form_errors form %}
+        {% endif %}
+   
+        <form class="row g-3 align-items-center" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" >Ajouter</button>
+        </form>
+    
+{% endblock %}
