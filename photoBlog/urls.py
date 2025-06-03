@@ -39,6 +39,9 @@ urlpatterns = [
     path('home/', blog.views.home_page, name='home'),
     path('photo/upload/', blog.views.photo_upload, name='photo_upload'),
     path('profile-photo/upload/', authentication.views.profile_photo_upload, name='profile_photo_upload'),
+    path('blog/create/', blog.views.blog_and_photo_upload, name='blog_create'),
+    path('blog/<int:post_id>/', blog.views.post_view, name='post_view'),
+    
 ]
 
 if settings.DEBUG:
