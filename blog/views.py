@@ -48,5 +48,30 @@ def blog_and_photo_upload(request):
 
 @login_required
 def post_view(request, post_id):
-    post =get_object_or_404( models.Blog, id=post_id)
+    post = get_object_or_404(models.Blog, id=post_id)
     return render(request, 'blog/view_blog_post.html', context={'post': post})
+
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(models.Blog, id=post_id)
+    edit_form = forms.BlogForm(instance=post)
+    delete_form = forms.DeleteBlogForm()
+
+    if request.method == 'POST':
+        if 'edit_post' in request.POST:
+            edit_form = forms.BlogForm(request.POST, instance=post)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect('home')
+        
+        if 'delete_post' in request.POST:
+            delete_form = forms.DeleteBlogForm(request.POST)
+            if delete_form.is_valid():
+                post.delete()
+                return redirect('home')
+            
+    context = {
+        'edit_form': edit_form,
+        'delete_form': delete_form,
+    }
+    return render(request, 'blog/edit_post.html', context=context)

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+    
+        <h1>Modifier un post</h1>
+
+        {% if form.errors %}
+            {% bootstrap_form_errors form %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form edit_form %}
+            <button type="submit" >Modifier</button>
+        </form>
+
+        <hr>
+        <h3>Supprimer le poste ?</h3>
+
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form delete_form %}
+            <button type="submit" >Supprimer</button>
+        </form>
+    
+{% endblock %}

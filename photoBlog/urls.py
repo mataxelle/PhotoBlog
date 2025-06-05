@@ -41,6 +41,7 @@ urlpatterns = [
     path('profile-photo/upload/', authentication.views.profile_photo_upload, name='profile_photo_upload'),
     path('blog/create/', blog.views.blog_and_photo_upload, name='blog_create'),
     path('blog/<int:post_id>/', blog.views.post_view, name='post_view'),
+    path('blog/<int:post_id>/edit/', blog.views.edit_post, name='edit_post'),
     
 ]
 
