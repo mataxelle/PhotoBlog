@@ -4,10 +4,10 @@ from authentication.models import User
 from blog.models import Photo, Blog
 
 class PhotoAdmin(admin.ModelAdmin):
-    photo_list_display = ('caption', 'date_created', 'uploader')
+    list_display = ('caption', 'date_created', 'uploader')
 
 class BlogAdmin(admin.ModelAdmin):
-    blog_list_display = ('title', 'date_created', 'author')
+    list_display = ('title', 'date_created', 'author')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Photo, PhotoAdmin)
