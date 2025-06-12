@@ -3,9 +3,12 @@
 {% block content %}
     <h2 class="my-5">{{ post.title }}</h2>
 
-    <p>
-        <a href="{% url 'edit_post' post.id %}">Modifier le post</a>
-    </p>
+    {% if perms.blog.change_blog %}
+        <p>
+            <a href="{% url 'edit_post' post.id %}">Modifier le post</a>
+        </p>
+    {% endif %}
+    
 
     <div class="row justify-content-around">
         <div class="col-4">
