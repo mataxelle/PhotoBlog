@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+    
+        <h1>Suivre des créateurs</h1>
+
+        {% if form.errors %}
+            {% bootstrap_form_errors form %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" >Confirmer</button>
+        </form>
+    
+{% endblock %}
