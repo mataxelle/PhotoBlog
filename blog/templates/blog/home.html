@@ -5,8 +5,8 @@
 
     <div class="row justify-content-around">
         {% for photo in photos %}
-            <div class="col-4">
-                <img src="{{ photo.image.url }}" alt="photo" class="img-fluid rounded ">
+            <div class="col-sm-10 col-md-4">
+                <img src="{{ photo.image.url }}" alt="photo" class="uniform-thumbnail">
                 <p>{{ photo.caption }}</p>
             </div>
         {% endfor %}
@@ -17,10 +17,10 @@
 
         <div class="row justify-content-around">
             {% for post in posts %}
-                <div class="col-4">
+                <div class="col-sm-10 col-md-4">
                     <a href="{% url 'post_view' post.id %}">
                         <h4>Post : {{ post.title }}</h4>
-                        <img src="{{ post.Photo.image.url }}" alt="photo" class="img-fluid rounded ">
+                        <img src="{{ post.Photo.image.url }}" alt="photo" class="uniform-thumbnail">
                     </a>
                 </div>
             {% endfor %}
