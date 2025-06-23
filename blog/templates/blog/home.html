@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 
+{% load blog_extras %}
+
 {% block content %}
     <h2 class="my-5">Fil d'actualité</h2>
 
     <div class="row justify-content-around">
-        {% for photo in posts_and_photos %}
-            <div class="col-sm-10 col-md-4">
-                <img src="{{ photo.image.url }}" alt="photo" class="uniform-thumbnail">
-                <p>{{ photo.caption }}</p>
-            </div>
-        {% endfor %}
-    </div>
-
-    {% if posts|length > 0 %}
-        <h2 class="my-5">Blog</h2>
-
-        <div class="row justify-content-around">
-            {% for post in posts %}
+        {% for instance in posts_and_photos %}
+            {% if instance|model_type == 'Blog' %}
                 <div class="col-sm-10 col-md-4">
-                    <a href="{% url 'post_view' post.id %}">
-                        <h4>Post : {{ post.title }}</h4>
-                        <img src="{{ post.Photo.image.url }}" alt="photo" class="uniform-thumbnail">
+                    <a href="{% url 'post_view' instance.id %}">
+                        <h4>Post : {{ instance.title }}</h4>
+                        <img src="{{ instance.Photo.image.url }}" alt="photo" class="uniform-thumbnail">
+                        <p><strong>Ecrit par {{ instance.contributors.all|join:", " }}</strong></p>
+                        <p>{{ instance.date_created }}</p>
                     </a>
                 </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+            {% elif instance|model_type == 'Photo' %}
+                <div class="col-sm-10 col-md-4">
+                    <img src="{{ instance.image.url }}" alt="photo" class="uniform-thumbnail">
+                    <p>{{ instance.caption }}</p>
+                    <p><strong>Prise par {{ instance.uploader }}</strong></p>
+                    <p>{{ instance.date_created }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
     
 {% endblock %}
