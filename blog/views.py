@@ -1,14 +1,25 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
+from itertools import chain 
 
 from . import forms, models
 
 @login_required
 def home_page(request):
-    photos = models.Photo.objects.all()
-    posts = models.Blog.objects.all()
-    return render(request, 'blog/home.html', context={'photos': photos, 'posts': posts})
+    posts = models.Blog.objects.filter(
+        Q(contributors__in=request.user.follows.all()) |
+        Q(starred=True)
+    )
+
+    photos = models.Photo.objects.filter(
+        uploader__in=request.user.follows.all()
+    ).exclude(blog__in=posts)
+
+    posts_and_photos = sorted(chain(posts, photos), key=lambda instance: instance.date_created, reverse=True)
+
+    return render(request, 'blog/home.html', context={'posts_and_photos': posts_and_photos})
 
 @login_required
 @permission_required('blog.add_photo', raise_exception=True)
