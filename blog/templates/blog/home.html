@@ -6,7 +6,7 @@
     <h2 class="my-5">Fil d'actualité</h2>
 
     <div class="row justify-content-around">
-        {% for instance in posts_and_photos %}
+        {% for instance in page_obj %}
             {% if instance|model_type == 'Blog' %}
                 {% include "blog/partials/blog_snippet.html" with blog=instance %}
             {% elif instance|model_type == 'Photo' %}
@@ -14,5 +14,22 @@
             {% endif %}
         {% endfor %}
     </div>
+
+    <span>
+        {% if page_obj.has_previous %}
+            <a href="?page=1">« Début</a>
+            <a href="?page={{ page_obj.previous_page_number }}">précédente</a>
+        {% endif %}
+    
+        <span>
+            Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}.
+
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">suivante</a>
+            
+            <a href="?page={{ page_obj.paginator.num_pages }}">Fin »</a>
+        {% endif %}
+    </span>
     
 {% endblock %}

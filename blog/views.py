@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
@@ -19,7 +20,16 @@ def home_page(request):
 
     posts_and_photos = sorted(chain(posts, photos), key=lambda instance: instance.date_created, reverse=True)
 
-    return render(request, 'blog/home.html', context={'posts_and_photos': posts_and_photos})
+    paginator = Paginator(posts_and_photos, 6)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj
+    }
+
+    return render(request, 'blog/home.html', context=context)
 
 @login_required
 @permission_required('blog.add_photo', raise_exception=True)
