@@ -135,7 +135,12 @@ def photo_feed(request):
         uploader__in=request.user.follows.all()
     ).order_by('-date_created')
 
+    paginator = Paginator(photos, 4)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'photos': photos
+        'page_obj': page_obj
     }
     return render(request, 'blog/photo_feed.html', context=context)
