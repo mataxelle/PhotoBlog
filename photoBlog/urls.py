@@ -44,6 +44,7 @@ urlpatterns = [
     path('blog/<int:post_id>/edit/', blog.views.edit_post, name='edit_post'),
     path('photo/multiple-upload/', blog.views.multiple_photo_upload, name='multiple_photo_upload'),
     path('follow_users/', blog.views.follow_users, name='follow_users'),
+    path('photo_feed/', blog.views.photo_feed, name='photo_feed'),
     
 ]
 

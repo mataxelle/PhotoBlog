@@ -118,3 +118,14 @@ def follow_users(request):
             return redirect('home')
     
     return render(request, 'blog/follow_user_form.html', context= {'form': form})
+
+@login_required
+def photo_feed(request):
+    photos = models.Photo.objects.filter(
+        uploader__in=request.user.follows.all()
+    ).order_by('-date_created')
+
+    context = {
+        'photos': photos
+    }
+    return render(request, 'blog/photo_feed.html', context=context)
